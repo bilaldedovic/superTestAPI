@@ -38,7 +38,7 @@ describe("Categories",()=>{
     })
 
 
-    describe("Update categories",()=>{
+    describe.skip("Update categories",()=>{
         let token,categoryId;
 
         

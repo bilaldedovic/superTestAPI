@@ -764,7 +764,71 @@ Setup a new Jenkins project
 Create a GitHub repo
 Push changes to GitHub
 
+After creating project inside the github, proceed with SETUP PERSONAL ACCESS TOKEN IN GITHUB WHICH WILL BE USED BY JENKINS
 
+SETUP PAT FOR GITHUB
+
+-Setup Personal Access Token on GitHub
+-Add the token in the Jenkins Job 
+- Verify job builds succesfully
+
+Use GITHUB PAT to the Jenkins Credentials
+
+after connecting try to build and check if the repository is pulled correctly in workspace
+
+Run tests on jenkins:
+
+- Steps:
+- Install NodeJS
+- Setup NodeJs in the Job
+- Setup scripts to execute tests
+- Verify successful run
+
+Dashboard-> Manage Jenkins -> Plugins -> NodeJS
+
+Dashborad -> Manage Jenkins -> Tools -> Add node js to configure nodejs in jenkins
+
+After selecting and configuring NodeJS, create build environment for tests
+Provide Node & npm bin/ folder to PATH after selecting this 
+
+input build steps, npm install, npx jest or create for options to run specific test cases
+
+Setup Junit Report in Jenkins
+
+- Add Post-build action to generate report 
+- Add the report path 
+- Execute tests
+- Verify report generation
+
+In job configure select in post build actions - PUBLISH JUNIT TEST RESULTS REPORT
+
+after Build is finished, open Test Result, after opening Test Results folder in build there will be data.
+
+Setup HTML REPORTER in Jenkins
+
+- Install HTML Publisher Plugins
+- Add Post-build action to generate report 
+- Add the report path 
+- Execute tests 
+- Verify report generation
+
+After HTML Publisher is done, we will get option in add post build action.
+
+Then we need to setup folder(directory) and filename.
+
+When build is finished, we will get ZIP file, which we can use.
+
+To not lose data history, we need to generate Test Artifacts.
+
+Test Artifacts - Generate artifacts 
+
+Add Post-build action to generate artifacts
+Execute tests
+Verify artifacts generation with each build
+
+To store data for multiple runs.
+
+As Post-build action select -Archive the artifacts and input which files to archive.
 
 
 

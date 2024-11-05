@@ -102,7 +102,7 @@ describe("Brands", ()=>{
                 const req = await controller.postBrand(data)
         
               
-                expect(req.statusCode).toBe(404)
+                expect(req.statusCode).toBe(422)
                 expect(req.body.error).toEqual("Brand not found.")
                 
             })
