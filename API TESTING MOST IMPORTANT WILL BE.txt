@@ -1,0 +1,788 @@
+API TESTING MOST IMPORTANT WILL BE WRITTEN HERE:
+
+Swagger is a tool that simplifies the design, building, and documentation of API's.
+With using Swagger, developers can create and maintain high-quality API's more efficiently, while consumers can more easily understand and use them. 
+
+Requests: 
+
+- GET - request is an HTTP request method used to retrieve or fetch resources from a server.
+
+- POST - request is an HTTP request method used to post or add resources to a server
+
+- PUT - request is an HTTP request method used to edit/update resources on a server 
+
+- DELETE - request is an HTTP request method used to delete resources from a server. 
+
+HTTP RESPONSE STATUS CODES: 
+
+100 - Informational responses (like: continue, switching protocols, processing, early hints)
+
+200 - Successful responses (like: OK, Created, Accepted, Non-Authoritative information, No Content, Reset Content, Partial Content, Multi-Status, Already Reported, IM Used)
+
+300 - Redirection messages (like: Multiple Choices, Moved Permanently, Found, See Other, Not Modified, Use Proxy, Unused, Temporary Redirect, Permanent Redirect)
+
+400 - Client error responses (like: Bad Request, Unauthorized, Payment Required, Forbidden, Not Found, Method Not Allowed, Not Acceptable, Proxy Authentication Required, Request Timeout, Conflict, ....)
+
+500 - Server error responses (like: Internal Server Error, Not Implemented, Bad Gateway, Service Unavailable, Gateway Timeout, HTTP Version Not Supported....)
+
+Tools for API testing: Postman, Axios, SuperTest.. 
+
+For this course we will use:
+
+-TypeScript,
+-HTTP Library - SuperTest,
+-Test Runner - Jest.
+
+Setup and installation for framework:
+
+npm install jest --save-dev 
+npm install supertest --save-dev
+npm install -D typescript 
+
+to install specific version 
+
+npm install dependency@versionNumber --save-dev
+
+For further framework setup we need to install:
+Always search for guide and read guidewhich will help you to install and config everything.
+
+- npm install ts-jest --save-dev - to use jest for .ts files it is TypeScript preprocessor
+
+Type Definitions:
+
+@types/jest - provides types for Jest globals -- it is autocompletion/type checker for Jest
+ - npm install --save-dev @types/jest
+@types/supertest - provides types for SuperTest -- it is automcompletion/type checker for SuperTest
+ - npm install --save @types/supertest
+In the end to work with TypeScript and Jest we need to create configuration file:
+
+npx ts-jest config:init -- create a basic Jest configuration file
+
+Note: We always need to match version of jest and @types/jest as closely as
+
+API fundamentals: 
+
+API - Application Programming Interface 
+
+API enables communication and data exchange between two spearate systems.
+It is like a messenger that takes a request and tells the system what to do and provides a response.
+
+REST API 
+
+REST - Representational State Transfer 
+
+Representational State Transfer (REST) is a software architectural style that defines a set of constraints to be used for creating APIs.
+
+REST API architectural constraints:
+
+1. Client - Server separation - we should divide client and server
+2. Uniform Interface - API should have it's identifier
+3. Statelessness - Client is resposible for data 
+4. Cacheability
+5. Layered system
+6. Code on Demand 
+
+HTTP Request contains:
+
+Base URI - where the request is being made from - url
+HTTP Methods - what opeation is being performed
+Headers = additional information passed to client and server
+Body - optional data to provide with the request 
+
+CRUD - HTTP METHODS 
+
+CREATE - POST
+READ - GET 
+UPDATE - PUT
+DELETE - DELETE 
+
+API TESTING 
+
+API testing - focuses on testing of the business logic, data responses, performance and security of programming interfaces.
+
+/users/1 
+
+{
+    "id":"1",
+    "name:"John",
+    "email":"email@gmail.com"
+}
+Verify response from the Client that all is present.
+
+Types of API testing:
+
+Functionality testing - Testing the business logic of application
+Load testing - Determining systems performance under specific expected load
+Security testing - To check if the APIs are secure from external threats 
+Penetration testing - To find security vulnerabilities that attacker could exploit
+Negative testing - To ensure APIs cloud handle invalid/wrong inputs
+
+Advantages of API testing 
+
+Early app access - Application can e accessed once the core logic is built. No need to rely on the UI.
+
+Test Speed and Coverage - Tests are comparatively a lot faster than Browser and can cover more test coverage.
+
+Language Independent - Data is exchanged via XML or JSON, you can write your tests in any language that can communicate with this data.
+
+Easier to maintain - API Changes are done less frequently than UI changes which makes tests less flaky and more reliable.
+
+Proof of concept:
+
+Importance of POC is:
+
+- obtain official approval from the team 
+- align everyone with the chosen framework
+- gather feedback and make necessary changes
+- ensure a solid understanding of the test approach 
+
+Steps in POC
+
+- choose a simple website/API for testing
+- create basic test for common HTTP Requests
+
+- URL that will be used https://practice-react.sdetunicorns.com/api/test/brands
+
+Get Method (Read)
+
+- In RESTful API, the GET method is used to retrieve data or information from the server.
+It is one of the most commonly used HTTP methods in RESTful web services.
+
+Ex: Retrieve a list of all the posts on a website using GET /posts URI and the server will return all the posts data.
+
+
+Client -------> Server 
+    HTTP REQUEST
+Client <------- Server 
+    HTTP RESPONSE
+
+Always test API manually to verify that api is okay. 
+
+To run test write "npx jest 'testPath'"
+
+GET METHOD (QUERY PARAM)
+
+- In a GET request, query parameters are additional data passed as part of the URL in the form of key-value pairs.
+- Commonly used in web applications to allow users to filter, sort, or paginate results.
+
+Ex: /comments?postId=1&limit=10 - would return ntop 10 comments that has postId of 1. 
+
+
+We can filter query with .query({key:value})
+
+  const res = await request.get("/comments")
+        .query({postId:1,limit:2});
+
+POST METHOD (CREATE)
+
+- In RESTful API, the POST method is used to create or add new resources to the server.
+
+Ex: Create a new post on a website using the POST /post URI along with the request body and the server will create a new post with a unique id. 
+
+Client -------> Server 
+    Request Body
+    POST /posts
+Client <------- Server 
+    Reponse Body
+
+PUT METHOD (UPDATE)
+
+In RESTful API, the PUT method is used to update an existing resource on the server.
+
+Ex: Update a post on a website using the PUT /posts/{id} URI along with the request body and the server will update the specified post.
+
+PUT - typically sends full body of the API - it is good practice to send whole body inside the request and to try to send invalid data to see how API is acting on the invalid data
+
+PATCH METHOD (UPDATE)
+
+In RESTful API, the PATCH method is used to update part of an existing resource on the server.
+
+Ex: Update the title of the post on a website using the PATCH /posts/{id} URI and the server will update the specified post's title. 
+
+Client -------> Server 
+    Request Body
+    PATCH /posts:id - {"name":"updated"}
+Client <------- Server 
+    Reponse Body
+
+Difference between PUT and PATCH:
+
+- PUT - send entire request body 
+- PATCH - send partial request body
+
+DELETE METHOD
+
+In RESTful API, the DELETE method is used to delete an existing resource on the server. 
+
+Ex: Delete a post on the website using the DELETE /posts/{id} URI and the server will delete the specified post. 
+
+
+*****AFTER POC IS ACCEPTED WE CAN WORK*************
+
+*BRAND TESTS*
+
+What will be covered:
+
+- GET /brands: 
+    - Fetching multiple brands from the API 
+
+- GET /brand/:id 
+    - Retrieving data for an individual brand using its id
+
+- POST /brand: 
+    - Creating a new brand 
+
+- PUT & DELETE 
+    - Updating and deleting the brant we just created. 
+
+
+To verify that response body is greater then 1 use length expect(req.body.length).toBeGreaterThan(1)
+
+
+To verify properties of the response body that includes attributes use Objects.keys to take keys of object and compare them  expect(Object.keys(req.body[0])).toEqual(["_id", "name"])
+
+Always organize tests to:
+
+Test organization:
+
+- POST Test 
+    - Create the required data using a POST request 
+
+- GET Test 
+    - Retrieve the created data using a GET request 
+
+- PUT Test 
+    - Update the previously created data using a PUT request 
+- DELETE Test 
+    - Delete the previously create daa using a DELETE request 
+
+Benefits of this infrastracture: 
+
+- Tests can be executed multiple times. 
+- Ensures data integrity and consistency. 
+- Suitable for CI integration and automation 
+
+
+To not have same title inside the database we can have like this 
+
+const data = {
+            name:"Test Brand " + Math.floor(Math.random() * 100000),
+            description:"Test Brand Description"
+        }
+using MATH function to create unique name
+
+
+We can use child scoping and parent scooping for better usage of the variables. 
+
+
+
+
+**NEGATIVE TESTING**
+
+Testing for unexpected or invalid inputs. 
+
+Importance of negative testing is ensuring comprehensive coverage.
+
+Schema validation testing:
+
+Purpose: Validating data structure and format in API responses.
+Ensure dherence to specific standards and requirements.
+Identifies potential data-related issues and improves data integrity. 
+
+Business Logic Validation:
+Purpose: Verifying API adherence to core application rules.
+Ensures correct behavior and functionality of the API. 
+Validates compliance with business requirements.  
+
+Benefits of Negative Testing:
+Uncovering hidden issues and vulnerabilites.
+Enhancing the robustness and reliability of the API.
+Improving overall software quality and user experience.
+
+Schema validation:
+
+Checkfs if the data sent by the API follows a scific structure and format to make sure the API is working correctly and consistently. 
+
+
+Ex: POST /brands request 
+
+-Required property validation
+-Min character lenght validation
+
+Examples of negative testing validations for name property vaalidation for required field and name length 
+
+
+            it("Schema Test - name is mandatory field",async ()=>{
+                const data = {
+                    name:"",
+                    description:"Test Brand Description"
+                }
+        
+                const req = await request.post("/brands").send(data);
+        
+                console.log(req.body)
+                expect(req.statusCode).toBe(422)
+                expect(req.body.error).toEqual("Name is required")
+            })
+
+            it.only("Schema Test - minimum char length for name > 1 ",async ()=>{
+                const data = {
+                    name:"a",
+                    description:"Test Brand Description"
+                }
+        
+                const req = await request.post("/brands").send(data);
+        
+                console.log(req.body)
+                expect(req.statusCode).toBe(422)
+                expect(req.body.error).toEqual("Brand name is too short")
+            })
+
+Business Logic Validation
+
+Chekcs if an API follows the application's core rules and requirements, making sureit behaves as expected in real-world scenarios.
+
+POST /brands request 
+
+- Duplicate brand entries not alowed.
+
+GET /brands/:id request 
+
+- Throw error if brands does not exist.
+
+When we test with GET specific brand is not working succesfully we need to use same format of ID.
+
+Ex: Bussiness logic tests 
+
+
+            it("Business Logic - duplicating entries are not allowed", async () =>{
+                
+                let nameForTestingDuplication = "Test Brand " + Math.floor(Math.random() * 100000)
+                const data = {
+                    name:nameForTestingDuplication,
+                    description:"Test Brand Description"
+                }
+        
+                const req = await request.post("/brands").send(data);
+        
+                console.log(req.body)
+                expect(req.statusCode).toBe(200)
+                expect(req.body.name).toBe(data.name)
+
+                const req2 = await request.post("/brands").send(data);
+
+                console.log(req2.body)
+                console.log(req2.statusCode)
+
+                expect(req2.statusCode).toBe(422)
+                expect(req2.body.error).toEqual(nameForTestingDuplication + " already exists")
+                //expect(req2.statusCode)
+        
+
+        
+        
+            })
+
+
+            it.only("Business Logic - brand does not exist on false id", async () =>{
+                
+                
+                const req = await request.get("/brands/64b12f1212e85607248e2895");
+        
+                console.log(req.body)
+                console.log(req.body.error)
+                console.log(req.statusCode)
+                expect(req.statusCode).toBe(404)
+                expect(req.body.error).toEqual("Brand not found.")
+                
+            })
+
+
+Exercise: 
+
+Negative testing 
+
+Schema validation:
+
+PUT /brands request
+
+- Brand name > 30 chars is not Accepted
+- Brand description must be a string
+
+Business logic Validation 
+
+PUT & DELETE /brands/:id request
+
+- Throw error whenn updating and deleting invalid brand
+
+
+HOOKS:
+
+Problem: Test dependencies affects individual test execution
+
+Solution: Utilize Hooks for flexible test execution
+
+Before All Hook:
+
+Enables Independent test execution
+Eliminates dependencies and bottlenecks 
+
+After All Hook:
+
+Perform cleanup tasks after all tests complete
+Ensures test environment remains clean
+
+Benefits with hooks:
+
+- Independent Test execution
+- Run tests in any order or individually 
+- Refactor tests easily without affecting others
+
+***Before All Hook***
+
+Executed once before all the grouped tests.
+
+Create Befire - All hook for:
+
+- POST /brands and GET /brands/:id 
+
+- Create brand in the before hook
+- Pass the response data to other tests 
+
+With beforeAll hooks we can remove data dependency, test dependencies and remove duplicated code.
+
+ALWAYS CREATE FILE FULLY INDEPENDENT.. 
+
+With hooks we can improve readability and maintainability of the code.
+
+***After All Hook***
+
+Create After All hook - 
+
+- Delete brand in the after hook using the brand id
+
+- To clean up the database to not override it and to not take the trash inside the database
+
+- After All hooks are good for cleanup of test data.
+
+We also have beforeEach and afterEach, which runs before and after each testfile.
+
+
+Test Framework Overview
+
+Objective: Setting up a future-proof framework for scalability 
+
+Benefits:
+
+- Flexibility - framework can effortlessly adapt to accommodate future growth 
+- Scalability - allows for easy scaling of the testing process 
+- Maintenance - reduces
+
+Key steps: 
+
+Controler setup - create a controller for brand test
+
+Test update - incorporate the newly built controller into existing tests
+
+Configuration File - create a configuration file to store common items and test data for reuse 
+
+Controller setup: 
+
+- Setup folder andd file
+- Create BrandController 
+ - Add Brand methods
+- Export BrandController
+
+Base Config Setup
+- Store baseUrl
+- Authentication information
+- Test data
+
+One config will be used accros all controllers.
+
+We can have multiple configs for different controllers.
+
+Exercise:
+
+Setup categories Controller
+Add methods for all theCategories API's
+Export Categories Controller
+
+
+AUTHENTICATION WITH TEST:
+
+Various authentication methods accros API's:
+
+-Bearer Tokens - Token-based authentication where a token is passed in the Authorization header.
+-OAuth 2.0 - A protocol for granting limited access to resources without sharing credentials.
+- API Keys - Unique identifiers used for authentication and tracking API requests.
+- Basic Authentication - A simple method involving the username and password in the API request header.
+- JSON Web Tokens (JWT) - Compact tokens used for authentication and data exchange.
+
+Auth Overview: 
+
+Implementation approach:
+
+- Utilizing bearer tokens for authentication in our framework. 
+- GOAL - Eliminate authentication errrors and implement categories tests.
+
+AUTH ERROR 
+
+- Review GET AND POST /categories test
+- Understand test failure
+- Test POST /categories in Swagger 
+
+To test categories we need to login via admin, store authorization token and send it inside the header.
+
+For login test
+setup uath controller
+
+
+PASSING AUTH TOKEN 
+
+STORE AUTH TOKEN AND PASS TO OTHER TESTS
+
+UPDATE POST CATEGORIES TEST
+VERIFY THAT TOKEN IS SENT CORRECTLY
+
+to set auth token inside the API REQUEST use 
+
+.set("Auth","value")
+
+const res = await controller.postCategory(body).set("Authorization", "Bearer " +token);
+
+always watch for request headers.
+
+Optimize Auth Test
+- Setup before hook to generate token 
+- Add config file to store login credentials 
+- Pass credentials to the before hook
+
+Exercise - Update Categories 
+
+- Add test for the PUT /categories/id 
+    - Independent 
+    - Assert category details updated 
+
+- Delete /categories/id 
+
+
+****UPLOAD FILES****
+
+- File upload is a common feature in many applications, making it crucial to understand.
+
+It takes binary string and content-type is multipart/form-data
+
+Also we need to take a look on parameter accept, content type and -F parameter which marks it single-...
+
+For single upload:
+
+- Create a upload controller 
+    - Add a method to upload single file 
+- Create a data folder 
+    - Add sample data file 
+- Create a upload spec file 
+    - Add test for POST /upload/single
+
+for uploading image we need to add .attach method 
+
+attach - field is signle -- WE NEED TO CHECK WHAT IS THE KEY INSIDE THE API, and filename is file path to the image
+
+ALWAYS COPY RELATIVE PATH FROM THE PROJECT
+
+
+MULTIPLE FILE UPLOAD
+
+Upload controller 
+    - Add another method to upload multiple files
+-Add another sample file in the data folder 
+- Add test for POST /upload/multiple
+
+For upload multiple files we need to watchout for the array of the paths 
+and after that to loop through files
+
+ 
+    uploadMultipleFiles(filePaths: string[]){
+      const req  =  request.post("/upload/multiple")
+      filePaths.forEach(file=>{
+        req.attach("multiple", file) // LOOP THROUGH ALL FILES THAT WE HAVE AND THEN ATTACH ALL FILES
+    })
+    }
+
+Utilities 
+
+- Utility files store common logic used across multiple files, simplifying maintenance and debugging.
+
+- All specific methods/logic we need to store to the specific file like base test where we will store all methods that can be used across all methods.
+
+- Helper methods 
+
+- These methods will be stored in a "helper.ts" file in utils folder.
+
+The Benefits
+
+This approach ensures that if something fails during a test, we only need to update one place instead of multiple places.
+
+Login Helper:
+
+-Create a helper utility file
+-Add a login helper method 
+- Update Categories.spec file with the login helper method 
+
+Idea is that test must be clean.
+
+import adminController from "../controller/admin.controller";
+
+const login = async (email:string, password:string) => {
+
+    const data = {"email":email, "password":password}
+
+    const res = await adminController.postAdminLogin(data);
+
+
+    return res.body.token;
+
+} -- method that will be called like single line 
+
+for usage 
+
+import { login } from '../utils/helper';
+
+ token = await login(config.email,config.password)
+
+Exercise:
+
+- Create a method to a new category id each time 
+- Update Categories.spec file with the category helper method 
+- Verify tests works as expected
+
+REPORTING
+
+-Using console reports
+- Console reporst are not suitable for CI/CD Implementation
+- Need for a more robust and CI/CD compatible Solution
+
+New reporst:
+
+Implementing JUnit reports for CI/CD pipeline
+Implementing HTML reports for a more visual representation of tests
+
+Implemntation strategy 
+
+- Using jest-junit-reporter for JUnit reports
+- Using jest-html-reporters for HTML reports
+- Installing necessary packages
+- Updating the Jest configuration
+- Generating the reports 
+
+JUnit reporter Overview
+
+-Install Jest Junit reporter
+- Update Jest Config to add reporters
+- Execute tests and generate report 
+- Add report in the report directory 
+
+For installation follow npm jest-junit instructions.
+
+JUnit reporter Implementation
+
+npm i jest-junit
+
+In your jest config add the following entry:
+
+{
+  "reporters": [ "default", "jest-junit" ]
+} 
+-- with this we configure that we have new repoter inside the framework
+-- we need to have default reporter to show the report generated in the terminal
+
+after running command we get xml format that we can go through
+
+we have deatiled info with junit 
+
+with all reports we need to store to the folder for the test results
+
+ reporters: [ "default", ["jest-junit",{
+      outputDirectory: "reports"
+  }] ]
+
+HTML Reporter 
+
+- Install Jest HTML reporter
+- Update Jest config to add reporters 
+- Execute tests and generate report 
+- Add report in the report directory
+
+Installation
+  # yarn
+  yarn add jest-html-reporters --dev
+  # npm
+  npm install jest-html-reporters --save-dev
+Usage
+Configure Jest to process the test results by adding the following entry to the Jest config (jest.config.json):
+
+"jest": {
+  ...,
+  "reporters": [
+    "default",
+    "jest-html-reporters"
+  ],
+  ...
+}
+As you run Jest from within the terminal, a file called jest_html_reporters.html will be created within your root folder containing information about your tests.
+
+ 
+FOR CUSTOMIZATION FOLLOW NPM OFFICIAL SITE. https://www.npmjs.com/package/jest-html-reporters
+
+["jest-html-reporters",{
+    publicPath: "reports/htmlReports/"
+
+  }]
+
+
+CI with Jenkins Overview
+
+- Jenkins is an open-source automation server that enables teams to build, test, and deploy their software.
+
+- It can be configured to perform various tasks and is widely used for continuos integration and continuos delivery pipelines.
+
+Goal for integrating tests with Jenkins:
+
+- Goal is to run our tests and integrate our reports with Jenkins.
+- The process involves installing Jenkins, configuring it to our needs, pushing our projects changes to GitHub and setting up Jenkins jos to pull the changes.
+- We'll also install necessary packages for generating reports and managing project dependencies.
+
+Jenkins installation 
+
+Download jenkins from official page 
+Install necessary packages
+Verify successful installation
+
+Setup a new project 
+
+Setup a new Jenkins project
+Create a GitHub repo
+Push changes to GitHub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
