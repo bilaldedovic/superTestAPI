@@ -113,7 +113,7 @@ describe("PUT request", ()=>{
         }
     })
 
-    describe.only("Delete brand id ", ()=>{
+    describe("Delete brand id ", ()=>{
         it("DELETE /brand/:id", async ()=>{
 
             const getIdOfSeven = (await request.get("/brands")).body[7]._id

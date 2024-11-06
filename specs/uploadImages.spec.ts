@@ -16,7 +16,7 @@ describe("Upload images", ()=>{
 
     describe("Test multiple image upload", ()=>{
 
-        it.only("POST -  multiple file upload ", async ()=>{
+        it("POST -  multiple file upload ", async ()=>{
 
             const files = ["data/image.png", "data/linux.png"]
 

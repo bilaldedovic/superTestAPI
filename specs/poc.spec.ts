@@ -93,7 +93,7 @@ describe("POC Tests", ()=>{
         })
     })
 
-    describe.only("DELETE requests", ()=>{
+    describe("DELETE requests", ()=>{
 
         it("DELETE /posts/{id}", async ()=>{
             const req = await request.delete("/posts/1");

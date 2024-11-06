@@ -831,22 +831,6 @@ To store data for multiple runs.
 As Post-build action select -Archive the artifacts and input which files to archive.
 
 
+We can give timing when we want to delete build artifacts, like schedule after 15 days, 30 days.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+We can add screenshots, videos and everything in artifacts and save it.
