@@ -32,11 +32,11 @@ API testing focuses on testing the business logic, data responses, performance, 
 
 ### HTTP Response Status Codes
 
-100 - Informational responses
-200 - Successful responses
-300 - Redirection messages
-400 - Client error responses
-500 - Server error responses
+- 100 - Informational responses
+- 200 - Successful responses
+- 300 - Redirection messages
+- 400 - Client error responses
+- 500 - Server error responses
 
 ## API Testing Tools
 
